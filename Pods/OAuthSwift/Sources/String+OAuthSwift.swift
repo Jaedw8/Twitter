@@ -10,44 +10,26 @@ import Foundation
 
 extension String {
 
-    var parametersFromQueryString: [String: String] {
-        return dictionaryBySplitting("&", keyValueSeparator: "=")
+    var urlEncodedString: String {
+        let customAllowedSet =  CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~")
+        let escapedString = self.addingPercentEncoding(withAllowedCharacters: customAllowedSet)
+        return escapedString!
     }
 
-    /// Encodes url string making it ready to be passed as a query parameter. This encodes pretty much everything apart from
-    /// alphanumerics and a few other characters compared to standard query encoding.
-    var urlEncoded: String {
-        let customAllowedSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._~")
-        return self.addingPercentEncoding(withAllowedCharacters: customAllowedSet)!
+    var parametersFromQueryString: [String: String] {
+        return dictionaryBySplitting("&", keyValueSeparator: "=")
     }
 
     var urlQueryEncoded: String? {
         return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)
     }
 
-    /// Returns new url query string by appending query parameter encoding it first, if specified.
-    func urlQueryByAppending(parameter name: String, value: String, encode: Bool = true, _ encodeError: ((String, String) -> Void)? = nil) -> String? {
-        if value.isEmpty {
-            return self
-        } else if let value = encode ? value.urlQueryEncoded : value {
-            return "\(self)\(self.isEmpty ? "" : "&")\(name)=\(value)"
-        } else {
-            encodeError?(name, value)
-            return nil
-        }
-    }
-
-    /// Returns new url string by appending query string at the end.
-    func urlByAppending(query: String) -> String {
-        return "\(self)\(self.contains("?") ? "&" : "?")\(query)"
-    }
-
     fileprivate func dictionaryBySplitting(_ elementSeparator: String, keyValueSeparator: String) -> [String: String] {
-        var string = self
 
-        if hasPrefix(elementSeparator) {
-            string = String(characters.dropFirst(1))
-        }
+		var string = self
+		if hasPrefix(elementSeparator) {
+			string = String(characters.dropFirst(1))
+		}
 
         var parameters = [String: String]()
 
@@ -82,8 +64,7 @@ extension String {
     }
 
     var droppedLast: String {
-        let to = self.index(before: self.endIndex)
-        return String(self[..<to])
+       return self.substring(to: self.index(before: self.endIndex))
     }
 
     mutating func dropLast() {
@@ -91,21 +72,20 @@ extension String {
     }
 
     func substring(to offset: String.IndexDistance) -> String {
-        let to = self.index(self.startIndex, offsetBy: offset)
-        return String(self[..<to])
+        return self.substring(to: self.index(self.startIndex, offsetBy: offset))
     }
 
     func substring(from offset: String.IndexDistance) -> String {
-        let from = self.index(self.startIndex, offsetBy: offset)
-        return String(self[from...])
+        return self.substring(from: self.index(self.startIndex, offsetBy: offset))
     }
+
 }
 
 extension String.Encoding {
 
     var charset: String {
         let charset = CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(self.rawValue))
-         // swiftlint:disable:next force_cast
+        // swiftlint:disable force_cast
         return charset! as String
     }
 

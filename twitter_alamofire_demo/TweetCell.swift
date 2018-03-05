@@ -10,12 +10,47 @@ import UIKit
 
 class TweetCell: UITableViewCell {
     
+    
     @IBOutlet weak var tweetTextLabel: UILabel!
     
     var tweet: Tweet! {
         didSet {
             tweetTextLabel.text = tweet.text
         }
+    }
+    
+    @IBAction func didTapRT(_ sender: Any)
+    {
+        tweet.retweeted = true
+        tweet.retweetCount += 1
+        
+        APIManager.shared.retweet(tweet) { (tweet: Tweet?, error: Error?) in
+            if let  error = error {
+                print("Error retweeting tweet: \(error.localizedDescription)")
+            } else if let tweet = tweet {
+                print("Successfully retweeted the following Tweet: \n\(tweet.text)")
+            }
+        }
+        
+        
+    }
+    
+    
+    
+    @IBAction func didTapLike(_ sender: Any)
+    {
+        tweet.favorited = true
+        tweet.favoriteCount += 1
+        
+        APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
+            if let  error = error {
+                print("Error favoriting tweet: \(error.localizedDescription)")
+            } else if let tweet = tweet {
+                print("Successfully favorited the following Tweet: \n\(tweet.text)")
+            }
+        }
+        
+        
     }
     
     override func awakeFromNib() {

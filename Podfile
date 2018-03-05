@@ -10,6 +10,12 @@ target 'twitter_alamofire_demo' do
   pod 'OAuthSwift'
   pod 'OAuthSwiftAlamofire'
   pod 'KeychainAccess'
+  
+  pod 'Alamofire', '~> 4.4'
+  pod 'AlamofireImage', '~> 3.1'
+  pod 'OAuthSwift', '~> 1.1.0'
+  pod 'OAuthSwiftAlamofire'
+  pod 'KeychainAccess'
 
   target 'twitter_alamofire_demoTests' do
     inherit! :search_paths
