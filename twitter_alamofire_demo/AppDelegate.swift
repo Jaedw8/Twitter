@@ -24,10 +24,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
             self.window?.rootViewController = loginVC
         }
-        
-        return true
+    
+    if User.current != nil
+    {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let homeViewController = storyboard.instantiateViewController(withIdentifier: "TweetsNavigationController")
+    window?.rootViewController = homeViewController
     }
     
+    return true
+}
+
+
     // MARK: TODO: Open URL
     // OAuth step 2
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
