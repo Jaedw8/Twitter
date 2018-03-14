@@ -17,20 +17,31 @@ The following **required** functionality is completed:
 - [x] User can pull to refresh. (1pt)
 - [x] User can tap the retweet and favorite buttons in a tweet cell to retweet and/or favorite a tweet. (2pts)
 - [x] Using AutoLayout, the Tweet cell should adjust it's layout for iPhone 7, Plus and SE device sizes as well as accommodate device rotation. (1pt)
-- [ ] User can tap on a tweet to view it in a detail view, with controls to retweet, favorite, and reply (2pts)
+- [x] User can tap on a tweet to view it in a detail view, with controls to retweet, favorite, and reply (2pts)
 - [ ] User can compose a new tweet by tapping on a compose button. (3pts)
 - [ ] When composing a tweet, user sees a countdown for the number of characters remaining for the tweet (out of 140) (2pt)
 - [ ] User can view their profile in a *profile tab* (3pts)
 - Contains the user header view: picture and tagline
 - Contains a section with the users basic stats: # tweets, # following, # followers
 
+
+
 The following **stretch** features are implemented:
 
 - [ ] The current signed in user will be persisted across restarts. (1pt)
 - [ ] Each tweet should display the relative timestamp for each tweet "8m", "7h". (1pt)
-- [ ] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count. (1pt)
+- [x] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count. (1pt)
 - [ ] Links in tweets are clickable. (2pts)
 - [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client. (2pts)
+[x] Profile view includes that user's timeline. (2pts)
+- [ ] User can tap the profile image in any tweet to see another user's profile. (1pt)
+- Contains the user header view: picture and tagline.
+- Contains a section with the users basic stats: # tweets, # following, # followers.
+- [ ] After creating a new tweet, a user should be able to view it in the timeline immediately without refetching the timeline from the network. (1pt)
+- [ ] User can reply to any tweet, and replies should be prefixed with the username and the reply_id should be set when posting the tweet. (2pts)
+- [ ] User sees embedded images in tweet if available. (3pts)
+- [ ] Pulling down the profile page should blur and resize the header image. (2pts)
+
 
 The following **additional** features are implemented:
 
