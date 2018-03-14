@@ -17,7 +17,7 @@ The following **required** functionality is completed:
 - [x] User can pull to refresh. (1pt)
 - [x] User can tap the retweet and favorite buttons in a tweet cell to retweet and/or favorite a tweet. (2pts)
 - [x] Using AutoLayout, the Tweet cell should adjust it's layout for iPhone 7, Plus and SE device sizes as well as accommodate device rotation. (1pt)
-- [x] User can tap on a tweet to view it in a detail view, with controls to retweet, favorite, and reply (2pts)
+- [ ] User can tap on a tweet to view it in a detail view, with controls to retweet, favorite, and reply (2pts)
 - [ ] User can compose a new tweet by tapping on a compose button. (3pts)
 - [ ] When composing a tweet, user sees a countdown for the number of characters remaining for the tweet (out of 140) (2pt)
 - [ ] User can view their profile in a *profile tab* (3pts)
@@ -56,7 +56,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/sJoy3lq.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/wSY1VnT.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

@@ -8,59 +8,45 @@
 
 import UIKit
 
-class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
-    ComposeViewControllerDelegate
-{
-    func did(post: Tweet) {
-        tweets.insert(post, at: 0)
-        tableView.reloadData()
-    }
-    
+class TimelineViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var tweets: [Tweet] = []
-
     
     @IBOutlet weak var tableView: UITableView!
-    var refreshControl: UIRefreshControl!
-
+    
+    var refreshController: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         tableView.dataSource = self
         tableView.delegate = self
         
-        //        tableView.rowHeight = UITableViewAutomaticDimension
-        //        tableView.estimatedRowHeight = 100
-        
-        refreshControl = UIRefreshControl() //used to refresh app
-        refreshControl.addTarget(self, action: #selector(TimelineViewController.didPullToRefresh(_:)), for: .valueChanged)
-        tableView.insertSubview(refreshControl, at: 0)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
         
         getTimeLine()
+        
+        refreshController = UIRefreshControl();
+        refreshController.addTarget(self, action: #selector(TimelineViewController.didPullToRefresh(_:)), for: .valueChanged)
+        tableView.insertSubview(refreshController, at: 0)
     }
     
-
-    
-    
-    func didPullToRefresh(_ refreshControl: UIRefreshControl) {
+    func didPullToRefresh(_ refreshController: UIRefreshControl) {
         getTimeLine()
+        self.refreshController.endRefreshing()
     }
-    
     
     func getTimeLine() {
         APIManager.shared.getHomeTimeLine { (tweets, error) in
             if let tweets = tweets {
                 self.tweets = tweets
                 self.tableView.reloadData()
-                self.refreshControl.endRefreshing()
             } else if let error = error {
                 print("Error getting home timeline: " + error.localizedDescription)
             }
         }
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets.count
@@ -78,37 +64,16 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func didReceiveMemoryWarning()
-    {
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     
-    @IBAction func didTapLogout(_ sender: Any)
-    {
+    @IBAction func didTapLogout(_ sender: Any) {
         APIManager.shared.logout()
     }
     
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let cell = sender as! UITableViewCell
-        
-        if let indexPath = tableView.indexPath(for: cell) {
-            
-            let tweet = tweets[indexPath.row]
-            
-            let destination = segue.destination as! DetailViewController
-            
-            destination.tweet = tweet
-        }
-        
-        
-    }
-        
-        
-    }
     
     /*
      // MARK: - Navigation
@@ -120,4 +85,4 @@ class TimelineViewController: UIViewController, UITableViewDelegate, UITableView
      }
      */
     
-
+}
